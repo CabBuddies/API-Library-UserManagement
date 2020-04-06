@@ -1,5 +1,5 @@
 {
-  "name": "UserManagementAPILibrary",
+  "name": "api-library-user-management",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -10,6 +10,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "mongoose": "^5.9.6",
+    "mongoose-id-validator": "^0.5.4",
+    "mongoose-paginate": "^5.0.3",
     "es6-promise": "^4.2.8",
     "isomorphic-fetch": "^2.2.1"
   }
