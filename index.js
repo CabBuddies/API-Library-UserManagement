@@ -19,7 +19,7 @@ function registerUser(email,password,firstName,lastName,phoneNumber){
         if (response.status >= 400) {
             throw new Error("Bad response from server");
         }
-        
+        //
         console.log(response.json())
 
         return response;
