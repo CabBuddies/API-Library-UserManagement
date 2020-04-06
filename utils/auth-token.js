@@ -11,12 +11,15 @@ async function authenticateToken(req, res, next) {
 
     let result = await JWT.findById(token)
 
+    console.log(result)
     if(result != null){
+        console.log(result)
         if(result.expirationTime.getTime()>new Date().getTime())
             req.val = result.user
     }else{
         result = await Main.decodeUser(token)
         result._id = token
+        console.log(result)
         result = await JWT.create(result)
         if(result != null){
             req.val = result.user
