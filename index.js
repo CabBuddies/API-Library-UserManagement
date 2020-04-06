@@ -50,9 +50,9 @@ function loginUser(email,password){
     })
 }
 
-function decodeUser(authToken){
+async function decodeUser(authToken){
     const url = baseUrl+'/jwt/decode'
-    return fetch(url, {
+    return await fetch(url, {
         method: 'get',
         headers: {
             'Accept': 'application/json, application/xml, text/plain, text/html, *.*',
@@ -60,13 +60,13 @@ function decodeUser(authToken){
             'Authorization':'Basic '+authToken
           }
       })
-    .then(function(response) {
-        if (response.status >= 400) {
-            throw new Error("Bad response from server");
-        }
-        console.log(response.json())
-        return response;
-    })
+    // .then(function(response) {
+    //     if (response.status >= 400) {
+    //         throw new Error("Bad response from server");
+    //     }
+    //     console.log(response.json())
+    //     return response;
+    // })
 }
 
 module.exports={registerUser,loginUser,decodeUser}
