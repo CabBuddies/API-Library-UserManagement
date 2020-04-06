@@ -50,8 +50,6 @@ function loginUser(email,password){
 }
 
 function decodeUser(authToken){
-    const data = {email,password}
-    console.log('read '+JSON.stringify(data))
     const url = baseUrl+'/jwt/decode'
     return fetch(url, {
         method: 'get',
