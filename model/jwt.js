@@ -30,7 +30,8 @@ const userSchema = mongoose.Schema({
 
 const jwtSchema = mongoose.Schema({
     _id:String,
-    user:userSchema
+    user:userSchema,
+    expirationTime:Date
 });
 
 module.exports = mongoose.model('JWT',jwtSchema);

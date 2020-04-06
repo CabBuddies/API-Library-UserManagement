@@ -14,9 +14,14 @@ async function authenticateToken(req, res, next) {
     const result = await JWT.findById(token)
 
     if(result != null){
-        req.val = result.user
+        if(result.expirationTime.getTime()>new Date().getTime())
+            req.val = result.user
     }else{
-        req.val = await Main.decodeUser(token)
+        result = await Main.decodeUser(token)
+        result = await JWT.save(result)
+        if(result != null){
+            req.val = result.user
+        }
     }
     
     if(req.val==null)
