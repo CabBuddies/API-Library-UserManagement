@@ -1,5 +1,3 @@
-const restClient = require('./rest-client');
-
 const JWT = require('../model/jwt') 
 
 const Main = require('../index')
