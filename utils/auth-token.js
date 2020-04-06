@@ -9,7 +9,7 @@ async function authenticateToken(req, res, next) {
     
     if (token == null) return res.sendStatus(401)
 
-    const result = await JWT.findById(token)
+    let result = await JWT.findById(token)
 
     if(result != null){
         if(result.expirationTime.getTime()>new Date().getTime())
