@@ -11,8 +11,14 @@ const userSchema = mongoose.Schema({
 
 const jwtSchema = mongoose.Schema({
     _id:String,
-    user:userSchema,
-    expirationTime:Date
+    user:{
+        type:userSchema,
+        require:true
+    },
+    expirationTime:{
+        type:Date,
+        require:true
+    }
 });
 
 module.exports = mongoose.model('JWT',jwtSchema);
