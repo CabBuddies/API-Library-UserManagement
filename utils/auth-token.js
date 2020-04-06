@@ -18,6 +18,9 @@ async function authenticateToken(req, res, next) {
             req.val = result.user
     }else{
         result = await Main.decodeUser(token)
+        console.log(result)
+        result = await result.json()
+        console.log(result)
         result._id = token
         console.log(result)
         result = await JWT.create(result)
