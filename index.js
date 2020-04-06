@@ -3,11 +3,11 @@ require('isomorphic-fetch');
 
 const baseUrl = 'https://cabbuddies-um.herokuapp.com'
 
-function registerUser(email,password,firstName,lastName,phoneNumber){
+async function registerUser(email,password,firstName,lastName,phoneNumber){
     const data = {email,password,firstName,lastName,phoneNumber}
     console.log('read '+JSON.stringify(data))
     const url = baseUrl+'/user/registration'
-    return fetch(url, {
+    return await fetch(url, {
         method: 'post',
         headers: {
             'Accept': 'application/json, application/xml, text/plain, text/html, *.*',
@@ -15,20 +15,20 @@ function registerUser(email,password,firstName,lastName,phoneNumber){
           },
         body: JSON.stringify(data)
       })
-    .then(function(response) {
-        if (response.status >= 400) {
-            throw new Error("Bad response from server");
-        }
+    // .then(function(response) {
+    //     if (response.status >= 400) {
+    //         throw new Error("Bad response from server");
+    //     }
 
-        return response;
-    })
+    //     return response;
+    // })
 }
 
-function loginUser(email,password){
+async function loginUser(email,password){
     const data = {email,password}
     console.log('read '+JSON.stringify(data))
     const url = baseUrl+'/user/login'
-    return fetch(url, {
+    return await fetch(url, {
         method: 'post',
         headers: {
             'Accept': 'application/json, application/xml, text/plain, text/html, *.*',
@@ -36,18 +36,18 @@ function loginUser(email,password){
           },
         body: JSON.stringify(data)
       })
-    .then(function(response) {
-        if (response.status >= 400) {
-            throw new Error("Bad response from server");
-        }
-        return response;
-    })
-    .then((response)=>{
-        if(response.status == 200){
-            //localStorage.setItem("authToken",response.json().authToken);
-        }
-        return response;
-    })
+    // .then(function(response) {
+    //     if (response.status >= 400) {
+    //         throw new Error("Bad response from server");
+    //     }
+    //     return response;
+    // })
+    // .then((response)=>{
+    //     if(response.status == 200){
+    //         //localStorage.setItem("authToken",response.json().authToken);
+    //     }
+    //     return response;
+    // })
 }
 
 async function decodeUser(authToken){
