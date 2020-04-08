@@ -3,8 +3,8 @@ require('isomorphic-fetch');
 
 const baseUrl = 'https://cabbuddies-um.herokuapp.com'
 
-async function registerUser(email,password,firstName,lastName,phoneNumber){
-    const data = {email,password,firstName,lastName,phoneNumber}
+async function registerUser(email,password,firstName,lastName,phoneNumber,registrationType){
+    const data = {email,password,firstName,lastName,phoneNumber,registrationType}
     console.log('read '+JSON.stringify(data))
     const url = baseUrl+'/user/registration'
     return await fetch(url, {
