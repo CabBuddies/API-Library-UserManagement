@@ -69,4 +69,23 @@ async function decodeUser(authToken){
     // })
 }
 
-module.exports={registerUser,loginUser,decodeUser}
+async function mediaList(authToken){
+    const url = baseUrl+'/media/list'
+    return await fetch(url, {
+        method: 'get',
+        headers: {
+            'Accept': 'application/json, application/xml, text/plain, text/html, *.*',
+            'Content-Type': 'application/json; charset=utf-8',
+            'Authorization':'Basic '+authToken
+          }
+      })
+    // .then(function(response) {
+    //     if (response.status >= 400) {
+    //         throw new Error("Bad response from server");
+    //     }
+    //     console.log(response.json())
+    //     return response;
+    // })
+}
+
+module.exports={registerUser,loginUser,decodeUser,mediaList}
