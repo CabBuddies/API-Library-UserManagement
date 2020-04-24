@@ -69,8 +69,8 @@ async function decodeUser(authToken){
     // })
 }
 
-async function createMedia(authToken,url){
-  const data = {url}
+async function createMedia(authToken,_url){
+  const data = {url:_url}
   console.log('read '+JSON.stringify(data))
   const url = baseUrl+'/media/create'
   return await fetch(url, {
