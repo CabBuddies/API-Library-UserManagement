@@ -81,4 +81,4 @@ async function optAuthenticateToken(req, res, next) {
     next()
 }
 
-module.exports={authenticateToken}
+module.exports={authenticateToken,optAuthenticateToken}
