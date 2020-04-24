@@ -7,7 +7,7 @@ async function authenticateToken(req, res, next) {
     console.log('==========>AuthTokenHeader')
     console.log(authHeader)
     const token = authHeader && authHeader.split(' ')[1]
-    
+    req.token = token
     if (token == null) return res.sendStatus(401)
 
     let result = await JWT.findById(token)
@@ -47,7 +47,7 @@ async function optAuthenticateToken(req, res, next) {
     console.log('==========>AuthTokenHeader')
     console.log(authHeader)
     const token = authHeader && authHeader.split(' ')[1]
-    
+    req.token = token
     if (token == null) {
         next()
         return true
