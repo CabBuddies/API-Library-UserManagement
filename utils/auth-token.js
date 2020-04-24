@@ -81,4 +81,14 @@ async function optAuthenticateToken(req, res, next) {
     next()
 }
 
-module.exports={authenticateToken,optAuthenticateToken}
+async function extractAuthToken(req, res, next) {
+    const authHeader = req.headers['authorization']
+    console.log('==========>AuthTokenHeader')
+    console.log(authHeader)
+    const token = authHeader && authHeader.split(' ')[1]
+    req.token = token
+    if (token == null) return res.sendStatus(401)
+    next()
+}
+
+module.exports={authenticateToken,optAuthenticateToken,extractAuthToken}
