@@ -69,7 +69,34 @@ async function decodeUser(authToken){
     // })
 }
 
-async function mediaList(authToken){
+async function createMedia(authToken,url){
+  const data = {url}
+  console.log('read '+JSON.stringify(data))
+  const url = baseUrl+'/media/create'
+  return await fetch(url, {
+      method: 'post',
+      headers: {
+          'Accept': 'application/json, application/xml, text/plain, text/html, *.*',
+          'Content-Type': 'application/json; charset=utf-8',
+          'Authorization':'Basic '+authToken
+        },
+      body: JSON.stringify(data)
+    })
+  // .then(function(response) {
+  //     if (response.status >= 400) {
+  //         throw new Error("Bad response from server");
+  //     }
+  //     return response;
+  // })
+  // .then((response)=>{
+  //     if(response.status == 200){
+  //         //localStorage.setItem("authToken",response.json().authToken);
+  //     }
+  //     return response;
+  // })
+}
+
+async function listMedia(authToken){
     const url = baseUrl+'/media/list'
     return await fetch(url, {
         method: 'get',
@@ -88,4 +115,4 @@ async function mediaList(authToken){
     // })
 }
 
-module.exports={registerUser,loginUser,decodeUser,mediaList}
+module.exports={registerUser,loginUser,decodeUser,createMedia,listMedia}
