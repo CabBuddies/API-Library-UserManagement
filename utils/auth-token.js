@@ -71,4 +71,4 @@ async function extractUser(req){
         
 }
 
-module.exports={authenticateToken,optAuthenticateToken,extractAuthToken}
+module.exports={authenticateToken,optAuthenticateToken,extractAuthToken,extractUser}
