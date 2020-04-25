@@ -3,81 +3,20 @@ const JWT = require('../model/jwt')
 const Main = require('../index')
 
 async function authenticateToken(req, res, next) {
-    const authHeader = req.headers['authorization']
-    console.log('==========>AuthTokenHeader')
-    console.log(authHeader)
-    const token = authHeader && authHeader.split(' ')[1]
+    const {token,user} = extractUser(req)
     req.token = token
-    if (token == null) return res.sendStatus(401)
-
-    let result = await JWT.findById(token)
-
-    console.log('==========>AuthTokenJWTDBResult')
-    console.log(result)
-    if(result != null){
-        console.log('==========>AuthTokenJwtDbResultNotNull')
-        console.log(result)
-        if(result.expirationTime.getTime()>new Date().getTime())
-            req.val = result.user
-    }else{
-        result = await Main.decodeUser(token)
-        console.log('==========>AuthTokenDecodeResult')
-        console.log(result)
-        result = await result.json()
-        console.log('==========>AuthTokenDecodeResultJson')
-        console.log(result)
-        result._id = token
-        console.log('==========>AuthTokenJwtCollDoc')
-        console.log(result)
-        result = await JWT.create(result)
-        if(result != null){
-            req.val = result.user
-        }
-    }
-    
-    if(req.val==null)
+    if(user==null){
         return res.sendStatus(401)
-        
+    }
+    req.val = user    
     next()
 }
 
 
 async function optAuthenticateToken(req, res, next) {
-    const authHeader = req.headers['authorization']
-    console.log('==========>AuthTokenHeader')
-    console.log(authHeader)
-    const token = authHeader && authHeader.split(' ')[1]
+    const {token,user} = extractUser(req)
     req.token = token
-    if (token == null) {
-        next()
-        return true
-    }
-
-    let result = await JWT.findById(token)
-
-    console.log('==========>AuthTokenJWTDBResult')
-    console.log(result)
-    if(result != null){
-        console.log('==========>AuthTokenJwtDbResultNotNull')
-        console.log(result)
-        if(result.expirationTime.getTime()>new Date().getTime())
-            req.val = result.user
-    }else{
-        result = await Main.decodeUser(token)
-        console.log('==========>AuthTokenDecodeResult')
-        console.log(result)
-        result = await result.json()
-        console.log('==========>AuthTokenDecodeResultJson')
-        console.log(result)
-        result._id = token
-        console.log('==========>AuthTokenJwtCollDoc')
-        console.log(result)
-        result = await JWT.create(result)
-        if(result != null){
-            req.val = result.user
-        }
-    }
-    
+    req.val = user    
     next()
 }
 
@@ -89,6 +28,43 @@ async function extractAuthToken(req, res, next) {
     req.token = token
     if (token == null) return res.sendStatus(401)
     next()
+}
+
+async function extractUser(req){
+    const authHeader = req.headers['authorization']
+    console.log('==========>AuthTokenHeader')
+    console.log(authHeader)
+    const token = authHeader && authHeader.split(' ')[1]
+    
+    if (token == null) return [null,null]
+
+    let result = await JWT.findById(token)
+
+    console.log('==========>AuthTokenJWTDBResult')
+    console.log(result)
+    if(result != null){
+        console.log('==========>AuthTokenJwtDbResultNotNull')
+        console.log(result)
+        if(result.expirationTime.getTime()>new Date().getTime())
+            return [token,result.user]
+    }else{
+        result = await Main.decodeUser(token)
+        console.log('==========>AuthTokenDecodeResult')
+        console.log(result)
+        result = await result.json()
+        console.log('==========>AuthTokenDecodeResultJson')
+        console.log(result)
+        result._id = token
+        console.log('==========>AuthTokenJwtCollDoc')
+        console.log(result)
+        result = await JWT.create(result)
+        if(result != null){
+            return [token,result.user]
+        }
+    }
+    
+    return [token,null]
+        
 }
 
 module.exports={authenticateToken,optAuthenticateToken,extractAuthToken}
