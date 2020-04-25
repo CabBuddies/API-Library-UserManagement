@@ -18,6 +18,9 @@ async function optAuthenticateToken(req, res, next) {
         const {token,user} = await extractUser(req)
         req.token = token
         req.val = user
+        console.log('************************')
+        console.log(user)
+        console.log('************************')
     } catch (error) {
         console.log(error)
     }    
