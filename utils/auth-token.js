@@ -45,7 +45,7 @@ async function extractUser(req){
     console.log(authHeader)
     const token = authHeader && authHeader.split(' ')[1]
     
-    if (token == null) return [null,null]
+    if (token == null) return {token:null,user:null}
 
     let result = await JWT.findById(token)
 
@@ -55,7 +55,7 @@ async function extractUser(req){
         console.log('==========>AuthTokenJwtDbResultNotNull')
         console.log(result)
         if(result.expirationTime.getTime()>new Date().getTime())
-            return [token,result.user]
+            return {token,user:result.user}
     }else{
         result = await Main.decodeUser(token)
         console.log('==========>AuthTokenDecodeResult')
@@ -68,11 +68,11 @@ async function extractUser(req){
         console.log(result)
         result = await JWT.create(result)
         if(result != null){
-            return [token,result.user]
+            return {token,user:result.user}
         }
     }
     
-    return [token,null]
+    return {token,user:null}
         
 }
 
