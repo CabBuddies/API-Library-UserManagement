@@ -3,7 +3,7 @@ const JWT = require('../model/jwt')
 const Main = require('../index')
 
 async function authenticateToken(req, res, next) {
-    const {token,user} = extractUser(req)
+    const {token,user} = await extractUser(req)
     req.token = token
     if(user==null){
         return res.sendStatus(401)
@@ -15,7 +15,7 @@ async function authenticateToken(req, res, next) {
 
 async function optAuthenticateToken(req, res, next) {
     try {
-        const {token,user} = extractUser(req)
+        const {token,user} = await extractUser(req)
         req.token = token
         req.val = user
     } catch (error) {
