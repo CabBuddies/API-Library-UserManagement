@@ -22,7 +22,9 @@ async function optAuthenticateToken(req, res, next) {
         console.log(user)
         console.log('************************')
     } catch (error) {
+        console.log('************************')
         console.log(error)
+        console.log('************************')
     }    
     next()
 }
