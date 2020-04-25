@@ -10,6 +10,7 @@ async function authenticateToken(req, res, next) {
     }
     req.val = user    
     next()
+    return 0
 }
 
 
@@ -18,6 +19,7 @@ async function optAuthenticateToken(req, res, next) {
     req.token = token
     req.val = user    
     next()
+    return 0
 }
 
 async function extractAuthToken(req, res, next) {
@@ -28,6 +30,7 @@ async function extractAuthToken(req, res, next) {
     req.token = token
     if (token == null) return res.sendStatus(401)
     next()
+    return 0
 }
 
 async function extractUser(req){
