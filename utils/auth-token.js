@@ -1,6 +1,6 @@
 const JWT = require('../model/jwt') 
 
-const Main = require('../index')
+const User = require('../api/user')
 
 async function authenticateToken(req, res, next) {
     const {token,user} = await extractUser(req)
@@ -57,7 +57,7 @@ async function extractUser(req){
         if(result.expirationTime.getTime()>new Date().getTime())
             return {token,user:result.user}
     }else{
-        result = await Main.decodeUser(token)
+        result = await User.decodeUser(token)
         console.log('==========>AuthTokenDecodeResult')
         console.log(result)
         result = await result.json()
